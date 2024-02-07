@@ -1,5 +1,27 @@
 package com.example.board.handler;
 
-public class CustomAuthFailureHandler {
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.stereotype.Component;
 
+@Component
+public class CustomAuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+  @Override
+  public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    String errorMessage = "";
+    if (exception instanceof BadCredentialsException) {
+      errorMessage = "아이디나 비밀번호가 맞지 않습니다. 다시 확인해 주세요.";
+    }
+    errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
+
+    setDefaultFailureUrl("/auth/loginFailure?error=true&exception=" + errorMessage);
+
+    super.onAuthenticationFailure(request, response, exception);
+  }
 }
