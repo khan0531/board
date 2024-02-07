@@ -1,6 +1,7 @@
 package com.example.board.controller;
 
 import com.example.board.config.auth.PrincipalDetail;
+import com.example.board.dto.ReplySaveRequestDto;
 import com.example.board.dto.ResponseDto;
 import com.example.board.model.Board;
 import com.example.board.service.BoardService;
@@ -23,18 +24,31 @@ public class BoardApiController {
   @PostMapping("/api/board")
   public ResponseDto<Long> savePost(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principalDetail) {
     boardService.writePost(board, principalDetail.getUser());
-    return new ResponseDto<>(HttpStatus.OK, board.getId());
+    return new ResponseDto<>(HttpStatus.OK, 1L);
   }
 
   @DeleteMapping("/api/board/{id}")
   public ResponseDto<Long> deletePost(@PathVariable Long id) {
     boardService.deletePost(id);
-    return new ResponseDto<>(HttpStatus.OK, id);
+    return new ResponseDto<>(HttpStatus.OK, 1L);
   }
 
   @PutMapping("/api/board/{id}")
   public ResponseDto<Long> updatePost(@PathVariable Long id, @RequestBody Board board) {
     boardService.updatePost(id, board);
-    return new ResponseDto<>(HttpStatus.OK, id);
+    return new ResponseDto<>(HttpStatus.OK, 1L);
+  }
+
+  @PostMapping("/api/board/{boardId}/reply")
+  public ResponseDto<Long> saveReply(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
+
+    boardService.writeReply(replySaveRequestDto);
+    return new ResponseDto<>(HttpStatus.OK, 1L);
+  }
+
+  @DeleteMapping("/api/board/reply/{replyId}")
+  public ResponseDto<Long> deleteReply(@PathVariable Long replyId) {
+    boardService.deleteReply(replyId);
+    return new ResponseDto<>(HttpStatus.OK, 1L);
   }
 }
