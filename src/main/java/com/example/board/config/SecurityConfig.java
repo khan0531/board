@@ -27,7 +27,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     "/css/**",
     "/image/**",
     "/dummy/**",
-    "/h2-console/**"
+    "/h2-console/**",
+      // swagger v2
+    "/configuration/ui",
+    "/configuration/security",
+    "/webjars/**",
+    "/swagger-ui.html",
+    "/swagger-resources",
+    "/swagger-resources/**",
+    "/v2/api-docs",
+
+    // swagger v3
+    "/swagger/ui/**",
+    "/v3/api-docs/**",
   };
 
   @Bean
