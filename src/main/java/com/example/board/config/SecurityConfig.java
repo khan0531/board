@@ -40,6 +40,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // swagger v3
     "/swagger/ui/**",
     "/v3/api-docs/**",
+
+    // Actuator
+    "/actuator/**"
   };
 
   @Bean

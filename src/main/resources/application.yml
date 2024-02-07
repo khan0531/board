@@ -36,3 +36,10 @@ spring:
   jackson:
     serialization:
       fail-on-empty-beans: false
+
+management:
+  endpoints:
+    add:
+      exposure:
+        include: '*'
+        exclude: 'shutdown'
